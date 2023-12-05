@@ -17,24 +17,24 @@ class mjSim:
         self.rate = rospy.Rate(20)  # 100 Hz
 
         #variable fro storing the mapped angles
-        self.angles = [0 for i in range(10)]      
+        self.angles = [0 for i in range(9)]      
 
 
-        self.m = mujoco.MjModel.from_xml_path('src/sim_control/src/robot-hand.xml')
+        self.m = mujoco.MjModel.from_xml_path('src/sim_control/src/robot-hand-v4.xml')
                         
         self.d = mujoco.MjData(self.m)  
     
     def callback(self, msg):
 
-        for i in range(10):
-            self.angles[i] = np.deg2rad(msg.data[i])/3
+        for i in range(9):
+            self.angles[i] = np.deg2rad(msg.data[i])
         # self.angles = msg.data
 
     def control(self):
         with mujoco.viewer.launch_passive(self.m,self.d)  as viewer:
             while not rospy.is_shutdown():
 
-                self.d.ctrl = self.angles[:10]
+                self.d.ctrl = self.angles
                 mujoco.mj_step(self.m, self.d)
 
                 # Example modification of a viewer option: toggle contact points every two seconds.
