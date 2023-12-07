@@ -6,12 +6,13 @@ import mujoco.viewer
 from std_msgs.msg import Float32MultiArray
 import numpy as np
 import os
+import sys
 
 class mjSim:
-    def __init__(self):
+    def __init__(self, topic = '/faive/policy_output'):
 
         #subcrbe to the mapped joint angles
-        self.ros_sub = rospy.Subscriber('/faive/policy_output', Float32MultiArray, self.callback)
+        self.ros_sub = rospy.Subscriber(topic, Float32MultiArray, self.callback)
 
 
         # setting ros rate
@@ -51,9 +52,26 @@ class mjSim:
 
     
 if __name__ == '__main__':
+    
     rospy.init_node('mujoco_teleop', anonymous = True)
+    
+    # select which topic to subscribe to using the command line argument
+    if len(sys.argv) > 1:
+        first_arg = sys.argv[1]
+        if (first_arg=='gui'):
+            TOPIC = '/hand/motors/cmd_joint_angles'
+        elif (first_arg=='teleop'):
+            TOPIC = '/faive/policy_output'
+        else:
+            rospy.loginfo_once("Invalid argument. Please enter either 'gui' or 'teleop', using teleop as default")
+            TOPIC = '/faive/policy_output'
+        rospy.loginfo_once(f"argument: {sys.argv[1]}")
+    else:
+        TOPIC = '/faive/policy_output'
+    
+    
 
-    simulation = mjSim()
+    simulation = mjSim(TOPIC)
 
     rospy.loginfo_once('Mujoco simulator to camera teleop connected!!!!!!!!!!!!!!')
 
