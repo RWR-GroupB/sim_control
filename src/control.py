@@ -5,6 +5,7 @@ import mujoco
 import mujoco.viewer
 from std_msgs.msg import Float32MultiArray
 import numpy as np
+import os
 
 class mjSim:
     def __init__(self):
@@ -19,8 +20,10 @@ class mjSim:
         #variable fro storing the mapped angles
         self.angles = [0 for i in range(9)]      
 
-
-        self.m = mujoco.MjModel.from_xml_path('src/sim_control/src/robot-hand-v4.xml')
+        # get python file root 
+        self.root = os.path.dirname(os.path.realpath(__file__))
+        
+        self.m = mujoco.MjModel.from_xml_path(self.root+'/robot-hand-v4.xml')
                         
         self.d = mujoco.MjData(self.m)  
     
