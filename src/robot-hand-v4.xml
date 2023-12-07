@@ -115,6 +115,7 @@
                                         <joint name="index_finger_top_joint" axis="0 0 -1" pos="0.005 0.06000 -0.026" range="0 0.68"></joint>
                                         <geom type="mesh" mesh="index_finger_top_mesh"></geom>
                                         <body name = "index_fingertip" pos = "0.011057 0.068 -0.026"/>
+                                        <site type="cylinder" rgba="0 0 1 1" euler="0 1.57 0" size=".002 .002 .02" pos = "0.011057 0.068 -0.026"/> 
                                     </body>
                                 </body>
                             </body>
@@ -151,6 +152,7 @@
                                         <joint name="middle_finger_top_joint" axis="0 0 -1" pos="0.005 0.070 0.0095" range="0 0.68"></joint>
                                         <geom type="mesh" mesh="middle_finger_top_mesh"></geom>
                                         <body name = "middle_fingertip" pos = "0.011057 0.078 0.0095"/>
+                                        <site type="cylinder" rgba="0 1 0 1" euler="0 1.57 0" size=".002 .002 .02" pos = "0.011057 0.078 0.0095"/> 
                                     </body>
                                 </body>
                             </body>
@@ -187,6 +189,7 @@
                                         <joint name="pinky_finger_top_joint" axis="0 0 -1" pos="0.005 0.060 0.045" range="0 0.68"></joint>
                                         <geom type="mesh" mesh="pinky_finger_top_mesh"></geom>
                                         <body name = "pinky_fingertip" pos = "0.011057 0.068 0.045"/>
+                                        <site type="cylinder" rgba="1 0 0 1" euler="0 1.57 0" size=".002 .002 .02" pos = "0.011057 0.068 0.045"/> 
                                     </body>
                                 </body>
                             </body>
@@ -219,6 +222,7 @@
                                     <joint name="thumb_finger_mid_joint" axis="0.0 -0.38646821 0.92230273" pos="0.09520   -0.097642 -0.014298" range="0 0.96"></joint>
                                     <geom type="mesh" mesh="thumb_mid_mesh"></geom>
                                     <body name = "thumb_fingertip" pos= "0.104825 -0.09042 -0.0113" />
+                                    <site type="cylinder" rgba="0 1 1 1" euler="0 1.57 0" size=".002 .002 .02" pos = "0.104825 -0.09042 -0.0113"/> 
                                 </body>
                             </body>
                         </body>
