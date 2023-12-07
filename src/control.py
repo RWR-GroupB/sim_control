@@ -11,14 +11,13 @@ import sys
 class mjSim:
     def __init__(self, topic = '/faive/policy_output'):
 
-        #subcrbe to the mapped joint angles
+        #subcribe to the mapped joint angles
         self.ros_sub = rospy.Subscriber(topic, Float32MultiArray, self.callback)
-
 
         # setting ros rate
         self.rate = rospy.Rate(20)  # 100 Hz
 
-        #variable fro storing the mapped angles
+        #variable for storing the mapped angles
         self.angles = [0 for i in range(9)]      
 
         # get python file root 
