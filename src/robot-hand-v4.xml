@@ -222,7 +222,7 @@
                                     <joint name="thumb_finger_mid_joint" axis="0.0 -0.38646821 0.92230273" pos="0.09520   -0.097642 -0.014298" range="0 0.96"></joint>
                                     <geom type="mesh" mesh="thumb_mid_mesh"></geom>
                                     <body name = "thumb_fingertip" pos= "0.104825 -0.09042 -0.0113" />
-                                    <site type="cylinder" rgba="0 1 1 1" euler="0 1.57 0" size=".002 .002 .02" pos = "0.104825 -0.09042 -0.0113"/> 
+                                    <site type="cylinder" rgba="0 1 1 1" euler="0 0 1.57" size=".002 .002 .02" pos = "0.115306 -0.093466 -0.012063"/> 
                                 </body>
                             </body>
                         </body>
@@ -267,12 +267,12 @@
         <position name="thumb_finger_mid_joint" joint="thumb_finger_mid_joint" ctrlrange="0.0 0.96" kp="4"/>
 
         <!-- Fingers -->
-        <position name="index_finger_prox_joint" joint="index_finger_prox_joint" ctrlrange="0 0.83"/>
-        <position name="index_finger_mid_joint" joint="index_finger_mid_joint" ctrlrange="0 0.96" kp="4"/>
-        <position name="middle_finger_prox_joint" joint="middle_finger_prox_joint" ctrlrange="0 0.83"/>
-        <position name="middle_finger_mid_joint" joint="middle_finger_mid_joint" ctrlrange="0 0.96" kp="4"/>
-        <position name="pinky_finger_prox_joint" joint="pinky_finger_prox_joint" ctrlrange="0 0.83"/>
-        <position name="pinky_finger_mid_joint" joint="pinky_finger_mid_joint" ctrlrange="0 0.96" kp="4"/>
+        <position name="index_finger_prox_joint" joint="index_finger_prox_joint" ctrlrange="0 0.83" kp="10"/>
+        <position name="index_finger_mid_joint" joint="index_finger_mid_joint" ctrlrange="0 0.96" kp="10"/>
+        <position name="middle_finger_prox_joint" joint="middle_finger_prox_joint" ctrlrange="0 0.83" kp="10"/>
+        <position name="middle_finger_mid_joint" joint="middle_finger_mid_joint" ctrlrange="0 0.96" kp="10"/>
+        <position name="pinky_finger_prox_joint" joint="pinky_finger_prox_joint" ctrlrange="0 0.83" kp="10"/>
+        <position name="pinky_finger_mid_joint" joint="pinky_finger_mid_joint" ctrlrange="0 0.96" kp="10"/>
     </actuator>
 
     <sensor>
