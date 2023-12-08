@@ -50,7 +50,7 @@ if __name__ == '__main__':
     
     # reap .npy file 
     root = os.path.dirname(os.path.realpath(__file__))
-    policy_joints = np.load(root+'/../rl_recordings/2023-12-08_10-06-58_dof_poses.npy')
+    policy_joints = np.load(root+'/../rl_recordings/2023-12-08_10-38-14_dof_poses.npy')
     
     # print the size of the policy
     rospy.loginfo('Policy size: %s', policy_joints.shape)
