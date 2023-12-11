@@ -35,6 +35,16 @@ class mjSim:
 
     def control(self):
         with mujoco.viewer.launch_passive(self.m,self.d)  as viewer:
+            
+            # Set the camera position
+            viewer.cam.lookat[0] = 0  # x-coordinate
+            viewer.cam.lookat[1] = 0  # y-coordinate
+            viewer.cam.lookat[2] = 0  # z-coordinate
+
+            viewer.cam.distance = 0.443
+            viewer.cam.elevation = 71.09  # in degrees
+            viewer.cam.azimuth = 166.05  # in degrees
+            
             while not rospy.is_shutdown():
 
                 self.d.ctrl = self.angles
@@ -46,6 +56,13 @@ class mjSim:
 
                 # Pick up changes to the physics state, apply perturbations, update options from GUI.
                 viewer.sync()
+                
+                # log camera position and orientation
+                # rospy.loginfo(f"camera position: {viewer.cam.lookat}")
+                # rospy.loginfo(f"camera orientation: {viewer.cam.elevation}")
+                # rospy.loginfo(f"camera azimuth: {viewer.cam.azimuth}")
+                # rospy.loginfo(f"camera distance: {viewer.cam.distance}")
+                
 
                 self.rate.sleep()
 
