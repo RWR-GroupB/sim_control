@@ -5,22 +5,26 @@ import mujoco
 import mujoco.viewer
 from std_msgs.msg import Float32MultiArray
 import numpy as np
+import os
+import sys
 
 class mjSim:
-    def __init__(self):
+    def __init__(self, topic = '/faive/policy_output'):
 
-        #subcrbe to the mapped joint angles
-        self.ros_sub = rospy.Subscriber('/faive/policy_output', Float32MultiArray, self.callback)
-
+        #subcribe to the mapped joint angles
+        self.ros_sub = rospy.Subscriber(topic, Float32MultiArray, self.callback)
 
         # setting ros rate
         self.rate = rospy.Rate(20)  # 100 Hz
 
-        #variable fro storing the mapped angles
+        #variable for storing the mapped angles
         self.angles = [0 for i in range(9)]      
 
 
-        self.m = mujoco.MjModel.from_xml_path('src/sim_control/src/robot-hand.xml')
+        # get python file root 
+        self.root = os.path.dirname(os.path.realpath(__file__))
+        
+        self.m = mujoco.MjModel.from_xml_path(self.root+'/robot-hand.xml')
                         
         self.d = mujoco.MjData(self.m)  
     
@@ -32,6 +36,16 @@ class mjSim:
 
     def control(self):
         with mujoco.viewer.launch_passive(self.m,self.d)  as viewer:
+            
+            # Set the camera position
+            viewer.cam.lookat[0] = 0  # x-coordinate
+            viewer.cam.lookat[1] = 0  # y-coordinate
+            viewer.cam.lookat[2] = 0  # z-coordinate
+
+            viewer.cam.distance = 0.443
+            viewer.cam.elevation = 71.09  # in degrees
+            viewer.cam.azimuth = 166.05  # in degrees
+            
             while not rospy.is_shutdown():
 
                 self.d.ctrl = self.angles
@@ -43,14 +57,38 @@ class mjSim:
 
                 # Pick up changes to the physics state, apply perturbations, update options from GUI.
                 viewer.sync()
+                
+                # log camera position and orientation
+                # rospy.loginfo(f"camera position: {viewer.cam.lookat}")
+                # rospy.loginfo(f"camera orientation: {viewer.cam.elevation}")
+                # rospy.loginfo(f"camera azimuth: {viewer.cam.azimuth}")
+                # rospy.loginfo(f"camera distance: {viewer.cam.distance}")
+                
 
                 self.rate.sleep()
 
     
 if __name__ == '__main__':
+    
     rospy.init_node('mujoco_teleop', anonymous = True)
+    
+    # select which topic to subscribe to using the command line argument
+    if len(sys.argv) > 1:
+        first_arg = sys.argv[1]
+        if (first_arg=='gui'):
+            TOPIC = '/hand/motors/cmd_joint_angles'
+        elif (first_arg=='teleop'):
+            TOPIC = '/faive/policy_output'
+        else:
+            rospy.loginfo_once("Invalid argument. Please enter either 'gui' or 'teleop', using teleop as default")
+            TOPIC = '/faive/policy_output'
+        rospy.loginfo_once(f"argument: {sys.argv[1]}")
+    else:
+        TOPIC = '/faive/policy_output'
+    
+    
 
-    simulation = mjSim()
+    simulation = mjSim(TOPIC)
 
     rospy.loginfo_once('Mujoco simulator to camera teleop connected!!!!!!!!!!!!!!')
 
