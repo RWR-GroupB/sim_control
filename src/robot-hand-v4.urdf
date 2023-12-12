@@ -1,0 +1,946 @@
+<?xml version="1.0" ?>
+<robot name="converted_robot">
+   <link name="world">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.0"/>
+         <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <link name="hand_palm">
+      <inertial>
+         <origin xyz="0.00903250369408918 -0.056891493006296194 0.015184091191722874" rpy="0.3379524474655582 0.008187505643612258 0.0917048078170704"/>
+         <mass value="0.10640079832940673"/>
+         <inertia ixx="9.229956365482815e-05" iyy="6.665485993614898e-05" izz="3.5917729628718075e-05" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual name="hand_palm_mesh">
+         <origin xyz="0.00903250369408918 -0.056891493006296194 0.015184091191722874" rpy="0.3379524474655582 0.008187505643612258 0.0917048078170704"/>
+         <geometry>
+            <mesh filename="../../sim_control/src/converted_hand_palm_mesh.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <link name="world2hand_palm_fixed">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="fixed" name="world2hand_palm_fixed">
+      <parent link="world"/>
+      <child link="world2hand_palm_fixed"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <joint type="fixed" name="world2hand_palm_fixed_offset">
+      <parent link="world2hand_palm_fixed"/>
+      <child link="hand_palm"/>
+      <origin xyz="-0.0 -0.0 -0.0" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="index_finger_knuckle">
+      <inertial>
+         <origin xyz="0.009451060932908909 -0.02268392343630297 -0.0261207101124563" rpy="1.6469260618797854 -0.1256123795197508 0.7265727913224376"/>
+         <mass value="0.005981671852000341"/>
+         <inertia ixx="4.513922729979196e-07" iyy="4.167003807129164e-07" izz="2.8548227049811505e-07" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual name="index_finger_knuckle_mesh">
+         <origin xyz="0.009451060932908909 -0.02268392343630297 -0.0261207101124563" rpy="1.6469260618797854 -0.1256123795197508 0.7265727913224376"/>
+         <geometry>
+            <mesh filename="../../sim_control/src/converted_index_finger_knuckle_mesh.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <link name="hand_palm2index_finger_knuckle_fixed">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="fixed" name="hand_palm2index_finger_knuckle_fixed">
+      <parent link="hand_palm"/>
+      <child link="hand_palm2index_finger_knuckle_fixed"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <joint type="fixed" name="hand_palm2index_finger_knuckle_fixed_offset">
+      <parent link="hand_palm2index_finger_knuckle_fixed"/>
+      <child link="index_finger_knuckle"/>
+      <origin xyz="-0.0 -0.0 -0.0" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="index_finger_prox_virt">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="4e-10" iyy="4e-10" izz="3e-10" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <link name="index_finger_prox_virt_joint">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="index_finger_prox_virt_joint">
+      <parent link="index_finger_knuckle"/>
+      <child link="index_finger_prox_virt_joint"/>
+      <origin xyz="0.008 -0.018 -0.026" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 0.0 -1.0"/>
+      <limit lower="0.0" upper="0.83" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="index_finger_prox_virt_joint_offset">
+      <parent link="index_finger_prox_virt_joint"/>
+      <child link="index_finger_prox_virt"/>
+      <origin xyz="-0.008 0.018 0.026" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="index_finger_prox">
+      <inertial>
+         <origin xyz="0.00677719950143936 0.007773369068779097 -0.026000016308662447" rpy="1.570792449170306 0.0 0.04543603786079504"/>
+         <mass value="0.007347081305734737"/>
+         <inertia ixx="8.604583192757715e-07" iyy="8.212766480629877e-07" izz="3.4607749765623217e-07" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual name="index_finger_prox_mesh">
+         <origin xyz="0.00677719950143936 0.007773369068779097 -0.026000016308662447" rpy="1.570792449170306 0.0 0.045436037860795024"/>
+         <geometry>
+            <mesh filename="../../sim_control/src/converted_index_finger_prox_mesh.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <link name="index_finger_prox_joint">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="index_finger_prox_joint">
+      <parent link="index_finger_prox_virt"/>
+      <child link="index_finger_prox_joint"/>
+      <origin xyz="0.008 -0.002 -0.026" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 0.0 -1.0"/>
+      <limit lower="0.0" upper="0.83" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="index_finger_prox_joint_offset">
+      <parent link="index_finger_prox_joint"/>
+      <child link="index_finger_prox"/>
+      <origin xyz="-0.008 0.002 0.026" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="index_finger_mid_virt">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="4e-10" iyy="4e-10" izz="3e-10" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <link name="index_finger_mid_virt_joint">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="index_finger_mid_virt_joint">
+      <parent link="index_finger_prox"/>
+      <child link="index_finger_mid_virt_joint"/>
+      <origin xyz="0.006 0.021 -0.026" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 0.0 -1.0"/>
+      <limit lower="0.0" upper="0.96" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="index_finger_mid_virt_joint_offset">
+      <parent link="index_finger_mid_virt_joint"/>
+      <child link="index_finger_mid_virt"/>
+      <origin xyz="-0.006 -0.021 0.026" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="index_finger_mid">
+      <inertial>
+         <origin xyz="0.0052179392301437075 0.04068429744253283 -0.025999999992331303" rpy="1.5707963267948963 0.0 0.08267571781140247"/>
+         <mass value="0.004381361211557595"/>
+         <inertia ixx="3.4279862319420423e-07" iyy="2.861242031779145e-07" izz="1.7310290411193827e-07" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual name="index_finger_mid_mesh">
+         <origin xyz="0.0052179392301437075 0.04068429744253283 -0.025999999992331303" rpy="1.5707963267948966 0.0 0.08267571781140248"/>
+         <geometry>
+            <mesh filename="../../sim_control/src/converted_index_finger_mid_mesh.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <link name="index_finger_mid_joint">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="index_finger_mid_joint">
+      <parent link="index_finger_mid_virt"/>
+      <child link="index_finger_mid_joint"/>
+      <origin xyz="0.006 0.033 -0.026" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 0.0 -1.0"/>
+      <limit lower="0.0" upper="0.96" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="index_finger_mid_joint_offset">
+      <parent link="index_finger_mid_joint"/>
+      <child link="index_finger_mid"/>
+      <origin xyz="-0.006 -0.033 0.026" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="index_finger_top_virt">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="4e-10" iyy="4e-10" izz="3e-10" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <link name="index_finger_top_virt_joint">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="index_finger_top_virt_joint">
+      <parent link="index_finger_mid"/>
+      <child link="index_finger_top_virt_joint"/>
+      <origin xyz="0.005 0.05 -0.026" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 0.0 -1.0"/>
+      <limit lower="0.0" upper="0.68" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="index_finger_top_virt_joint_offset">
+      <parent link="index_finger_top_virt_joint"/>
+      <child link="index_finger_top_virt"/>
+      <origin xyz="-0.005 -0.05 0.026" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="index_finger_top">
+      <inertial>
+         <origin xyz="0.004019958767227135 0.06671783728001035 -0.026000000214383947" rpy="1.5707963267948966 0.0 0.08389360819922993"/>
+         <mass value="0.0032114158509255718"/>
+         <inertia ixx="2.068479666626219e-07" iyy="1.566833073995418e-07" izz="1.1025744118206001e-07" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual name="index_finger_top_mesh">
+         <origin xyz="0.004019958767227135 0.06671783728001035 -0.026000000214383947" rpy="1.5707963267948966 0.0 0.08389360819922993"/>
+         <geometry>
+            <mesh filename="../../sim_control/src/converted_index_finger_top_mesh.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <link name="index_finger_top_joint">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="index_finger_top_joint">
+      <parent link="index_finger_top_virt"/>
+      <child link="index_finger_top_joint"/>
+      <origin xyz="0.005 0.06 -0.026" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 0.0 -1.0"/>
+      <limit lower="0.0" upper="0.68" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="index_finger_top_joint_offset">
+      <parent link="index_finger_top_joint"/>
+      <child link="index_finger_top"/>
+      <origin xyz="-0.005 -0.06 0.026" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="index_fingertip">
+      <inertial>
+         <origin xyz="0.011057 0.068 -0.026" rpy="0.0 0.0 0.0"/>
+         <mass value="0.0"/>
+         <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <link name="index_finger_top2index_fingertip_fixed">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="fixed" name="index_finger_top2index_fingertip_fixed">
+      <parent link="index_finger_top"/>
+      <child link="index_finger_top2index_fingertip_fixed"/>
+      <origin xyz="0.011057 0.068 -0.026" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <joint type="fixed" name="index_finger_top2index_fingertip_fixed_offset">
+      <parent link="index_finger_top2index_fingertip_fixed"/>
+      <child link="index_fingertip"/>
+      <origin xyz="-0.0 -0.0 -0.0" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="middle_finger_knuckle">
+      <inertial>
+         <origin xyz="0.008550474680383169 -0.012275271551757236 0.009500017227813167" rpy="1.5707827848773592 2.220446049250313e-16 0.5206031480954603"/>
+         <mass value="0.005556491376879833"/>
+         <inertia ixx="3.7637642887060095e-07" iyy="3.3811252296752136e-07" izz="2.573555493614528e-07" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual name="middle_finger_knuckle_mesh">
+         <origin xyz="0.008550474680383169 -0.012275271551757236 0.009500017227813167" rpy="1.5707827848773592 0.0 0.5206031480954603"/>
+         <geometry>
+            <mesh filename="../../sim_control/src/converted_middle_finger_knuckle_mesh.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <link name="hand_palm2middle_finger_knuckle_fixed">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="fixed" name="hand_palm2middle_finger_knuckle_fixed">
+      <parent link="hand_palm"/>
+      <child link="hand_palm2middle_finger_knuckle_fixed"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <joint type="fixed" name="hand_palm2middle_finger_knuckle_fixed_offset">
+      <parent link="hand_palm2middle_finger_knuckle_fixed"/>
+      <child link="middle_finger_knuckle"/>
+      <origin xyz="-0.0 -0.0 -0.0" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="middle_finger_prox_virt">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="4e-10" iyy="4e-10" izz="3e-10" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <link name="middle_finger_prox_virt_joint">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="middle_finger_prox_virt_joint">
+      <parent link="middle_finger_knuckle"/>
+      <child link="middle_finger_prox_virt_joint"/>
+      <origin xyz="0.008 -0.008 0.0095" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 0.0 -1.0"/>
+      <limit lower="0.0" upper="0.83" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="middle_finger_prox_virt_joint_offset">
+      <parent link="middle_finger_prox_virt_joint"/>
+      <child link="middle_finger_prox_virt"/>
+      <origin xyz="-0.008 0.008 -0.0095" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="middle_finger_prox">
+      <inertial>
+         <origin xyz="0.006777199453515789 0.017773368404754575 0.009499982750762347" rpy="1.570792482526341 0.0 0.045436016959767414"/>
+         <mass value="0.007347080333440892"/>
+         <inertia ixx="8.604581480261562e-07" iyy="8.212765321739255e-07" izz="3.4607741366959423e-07" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual name="middle_finger_prox_mesh">
+         <origin xyz="0.006777199453515789 0.017773368404754575 0.009499982750762347" rpy="1.570792482526341 0.0 0.045436016959767414"/>
+         <geometry>
+            <mesh filename="../../sim_control/src/converted_middle_finger_prox_mesh.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <link name="middle_finger_prox_joint">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="middle_finger_prox_joint">
+      <parent link="middle_finger_prox_virt"/>
+      <child link="middle_finger_prox_joint"/>
+      <origin xyz="0.008 0.008 0.0095" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 0.0 -1.0"/>
+      <limit lower="0.0" upper="0.83" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="middle_finger_prox_joint_offset">
+      <parent link="middle_finger_prox_joint"/>
+      <child link="middle_finger_prox"/>
+      <origin xyz="-0.008 -0.008 -0.0095" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="middle_finger_mid_virt">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="4e-10" iyy="4e-10" izz="3e-10" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <link name="middle_finger_mid_virt_joint">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="middle_finger_mid_virt_joint">
+      <parent link="middle_finger_prox"/>
+      <child link="middle_finger_mid_virt_joint"/>
+      <origin xyz="0.006 0.031 0.0095" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 0.0 -1.0"/>
+      <limit lower="0.0" upper="0.96" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="middle_finger_mid_virt_joint_offset">
+      <parent link="middle_finger_mid_virt_joint"/>
+      <child link="middle_finger_mid_virt"/>
+      <origin xyz="-0.006 -0.031 -0.0095" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="middle_finger_mid">
+      <inertial>
+         <origin xyz="0.005217938822396572 0.050684296727111576 0.009499999774511441" rpy="1.5707963267948966 0.0 0.08267574218248352"/>
+         <mass value="0.004381360012883652"/>
+         <inertia ixx="3.427984816170146e-07" iyy="2.8612410223244445e-07" izz="1.7310284264299335e-07" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual name="middle_finger_mid_mesh">
+         <origin xyz="0.005217938822396572 0.050684296727111576 0.009499999774511441" rpy="1.5707963267948968 0.0 0.08267574218248354"/>
+         <geometry>
+            <mesh filename="../../sim_control/src/converted_middle_finger_mid_mesh.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <link name="middle_finger_mid_joint">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="middle_finger_mid_joint">
+      <parent link="middle_finger_mid_virt"/>
+      <child link="middle_finger_mid_joint"/>
+      <origin xyz="0.006 0.043 0.0095" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 0.0 -1.0"/>
+      <limit lower="0.0" upper="0.96" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="middle_finger_mid_joint_offset">
+      <parent link="middle_finger_mid_joint"/>
+      <child link="middle_finger_mid"/>
+      <origin xyz="-0.006 -0.043 -0.0095" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="middle_finger_top_virt">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="4e-10" iyy="4e-10" izz="3e-10" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <link name="middle_finger_top_virt_joint">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="middle_finger_top_virt_joint">
+      <parent link="middle_finger_mid"/>
+      <child link="middle_finger_top_virt_joint"/>
+      <origin xyz="0.005 0.06 0.0095" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 0.0 -1.0"/>
+      <limit lower="0.0" upper="0.68" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="middle_finger_top_virt_joint_offset">
+      <parent link="middle_finger_top_virt_joint"/>
+      <child link="middle_finger_top_virt"/>
+      <origin xyz="-0.005 -0.06 -0.0095" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="middle_finger_top">
+      <inertial>
+         <origin xyz="0.004019959188593686 0.07671783778215764 0.009499999562969574" rpy="1.5707963267948966 0.0 0.08389359468987216"/>
+         <mass value="0.0032114158968966386"/>
+         <inertia ixx="2.0684795480809184e-07" iyy="1.5668330917562006e-07" izz="1.1025743126360816e-07" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual name="middle_finger_top_mesh">
+         <origin xyz="0.004019959188593686 0.07671783778215764 0.009499999562969574" rpy="1.5707963267948968 0.0 0.08389359468987216"/>
+         <geometry>
+            <mesh filename="../../sim_control/src/converted_middle_finger_top_mesh.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <link name="middle_finger_top_joint">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="middle_finger_top_joint">
+      <parent link="middle_finger_top_virt"/>
+      <child link="middle_finger_top_joint"/>
+      <origin xyz="0.005 0.07 0.0095" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 0.0 -1.0"/>
+      <limit lower="0.0" upper="0.68" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="middle_finger_top_joint_offset">
+      <parent link="middle_finger_top_joint"/>
+      <child link="middle_finger_top"/>
+      <origin xyz="-0.005 -0.07 -0.0095" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="middle_fingertip">
+      <inertial>
+         <origin xyz="0.011057 0.078 0.0095" rpy="0.0 0.0 0.0"/>
+         <mass value="0.0"/>
+         <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <link name="middle_finger_top2middle_fingertip_fixed">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="fixed" name="middle_finger_top2middle_fingertip_fixed">
+      <parent link="middle_finger_top"/>
+      <child link="middle_finger_top2middle_fingertip_fixed"/>
+      <origin xyz="0.011057 0.078 0.0095" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <joint type="fixed" name="middle_finger_top2middle_fingertip_fixed_offset">
+      <parent link="middle_finger_top2middle_fingertip_fixed"/>
+      <child link="middle_fingertip"/>
+      <origin xyz="-0.0 -0.0 -0.0" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="pinky_finger_knuckle">
+      <inertial>
+         <origin xyz="0.009451061037609941 -0.02268392242053632 0.04512072091053327" rpy="1.494659030107169 0.12562011065999457 0.7265727289357973"/>
+         <mass value="0.005981669465496488"/>
+         <inertia ixx="4.513922554642895e-07" iyy="4.16700595922438e-07" izz="2.854820024801843e-07" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual name="pinky_finger_knuckle_mesh">
+         <origin xyz="0.009451061037609941 -0.02268392242053632 0.04512072091053327" rpy="1.494659030107169 0.12562011065999457 0.7265727289357973"/>
+         <geometry>
+            <mesh filename="../../sim_control/src/converted_pinky_finger_knuckle_mesh.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <link name="hand_palm2pinky_finger_knuckle_fixed">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="fixed" name="hand_palm2pinky_finger_knuckle_fixed">
+      <parent link="hand_palm"/>
+      <child link="hand_palm2pinky_finger_knuckle_fixed"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <joint type="fixed" name="hand_palm2pinky_finger_knuckle_fixed_offset">
+      <parent link="hand_palm2pinky_finger_knuckle_fixed"/>
+      <child link="pinky_finger_knuckle"/>
+      <origin xyz="-0.0 -0.0 -0.0" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="pinky_finger_prox_virt">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="4e-10" iyy="4e-10" izz="3e-10" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <link name="pinky_finger_prox_virt_joint">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="pinky_finger_prox_virt_joint">
+      <parent link="pinky_finger_knuckle"/>
+      <child link="pinky_finger_prox_virt_joint"/>
+      <origin xyz="0.008 -0.018 0.045" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 0.0 -1.0"/>
+      <limit lower="0.0" upper="0.83" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="pinky_finger_prox_virt_joint_offset">
+      <parent link="pinky_finger_prox_virt_joint"/>
+      <child link="pinky_finger_prox_virt"/>
+      <origin xyz="-0.008 0.018 -0.045" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="pinky_finger_prox">
+      <inertial>
+         <origin xyz="0.006777199359911236 0.007773369120739597 0.04499998333617832" rpy="1.5707924753131197 0.0 0.045436064370124145"/>
+         <mass value="0.007347076906791511"/>
+         <inertia ixx="8.604576963834254e-07" iyy="8.212761597245503e-07" izz="3.460771979435085e-07" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual name="pinky_finger_prox_mesh">
+         <origin xyz="0.006777199359911236 0.007773369120739597 0.04499998333617832" rpy="1.5707924753131197 0.0 0.04543606437012415"/>
+         <geometry>
+            <mesh filename="../../sim_control/src/converted_pinky_finger_prox_mesh.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <link name="pinky_finger_prox_joint">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="pinky_finger_prox_joint">
+      <parent link="pinky_finger_prox_virt"/>
+      <child link="pinky_finger_prox_joint"/>
+      <origin xyz="0.008 -0.002 0.045" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 0.0 -1.0"/>
+      <limit lower="0.0" upper="0.83" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="pinky_finger_prox_joint_offset">
+      <parent link="pinky_finger_prox_joint"/>
+      <child link="pinky_finger_prox"/>
+      <origin xyz="-0.008 0.002 -0.045" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="pinky_finger_mid_virt">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="4e-10" iyy="4e-10" izz="3e-10" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <link name="pinky_finger_mid_virt_joint">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="pinky_finger_mid_virt_joint">
+      <parent link="pinky_finger_prox"/>
+      <child link="pinky_finger_mid_virt_joint"/>
+      <origin xyz="0.006 0.021 0.045" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 0.0 -1.0"/>
+      <limit lower="0.0" upper="0.96" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="pinky_finger_mid_virt_joint_offset">
+      <parent link="pinky_finger_mid_virt_joint"/>
+      <child link="pinky_finger_mid_virt"/>
+      <origin xyz="-0.006 -0.021 -0.045" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="pinky_finger_mid">
+      <inertial>
+         <origin xyz="0.005217939300309911 0.04068429776610221 0.04500000022385818" rpy="1.5707963267948966 0.0 0.08267576238516944"/>
+         <mass value="0.00438135876732865"/>
+         <inertia ixx="3.427982962052396e-07" iyy="2.861239987056989e-07" izz="1.731027498768299e-07" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual name="pinky_finger_mid_mesh">
+         <origin xyz="0.005217939300309911 0.04068429776610221 0.04500000022385818" rpy="1.5707963267948966 0.0 0.08267576238516942"/>
+         <geometry>
+            <mesh filename="../../sim_control/src/converted_pinky_finger_mid_mesh.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <link name="pinky_finger_mid_joint">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="pinky_finger_mid_joint">
+      <parent link="pinky_finger_mid_virt"/>
+      <child link="pinky_finger_mid_joint"/>
+      <origin xyz="0.006 0.033 0.045" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 0.0 -1.0"/>
+      <limit lower="0.0" upper="0.96" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="pinky_finger_mid_joint_offset">
+      <parent link="pinky_finger_mid_joint"/>
+      <child link="pinky_finger_mid"/>
+      <origin xyz="-0.006 -0.033 -0.045" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="pinky_finger_top_virt">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="4e-10" iyy="4e-10" izz="3e-10" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <link name="pinky_finger_top_virt_joint">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="pinky_finger_top_virt_joint">
+      <parent link="pinky_finger_mid"/>
+      <child link="pinky_finger_top_virt_joint"/>
+      <origin xyz="0.005 0.05 0.045" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 0.0 -1.0"/>
+      <limit lower="0.0" upper="0.68" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="pinky_finger_top_virt_joint_offset">
+      <parent link="pinky_finger_top_virt_joint"/>
+      <child link="pinky_finger_top_virt"/>
+      <origin xyz="-0.005 -0.05 -0.045" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="pinky_finger_top">
+      <inertial>
+         <origin xyz="0.004019958579384208 0.06671783746545569 0.04500000010019848" rpy="1.5707963267948966 0.0 0.08389359998147031"/>
+         <mass value="0.003211414810006666"/>
+         <inertia ixx="2.0684784035426386e-07" iyy="1.5668325119064532e-07" izz="1.1025736554165911e-07" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual name="pinky_finger_top_mesh">
+         <origin xyz="0.004019958579384208 0.06671783746545569 0.04500000010019848" rpy="1.5707963267948966 0.0 0.08389359998147028"/>
+         <geometry>
+            <mesh filename="../../sim_control/src/converted_pinky_finger_top_mesh.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <link name="pinky_finger_top_joint">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="pinky_finger_top_joint">
+      <parent link="pinky_finger_top_virt"/>
+      <child link="pinky_finger_top_joint"/>
+      <origin xyz="0.005 0.06 0.045" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 0.0 -1.0"/>
+      <limit lower="0.0" upper="0.68" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="pinky_finger_top_joint_offset">
+      <parent link="pinky_finger_top_joint"/>
+      <child link="pinky_finger_top"/>
+      <origin xyz="-0.005 -0.06 -0.045" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="pinky_fingertip">
+      <inertial>
+         <origin xyz="0.011057 0.068 0.045" rpy="0.0 0.0 0.0"/>
+         <mass value="0.0"/>
+         <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <link name="pinky_finger_top2pinky_fingertip_fixed">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="fixed" name="pinky_finger_top2pinky_fingertip_fixed">
+      <parent link="pinky_finger_top"/>
+      <child link="pinky_finger_top2pinky_fingertip_fixed"/>
+      <origin xyz="0.011057 0.068 0.045" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <joint type="fixed" name="pinky_finger_top2pinky_fingertip_fixed_offset">
+      <parent link="pinky_finger_top2pinky_fingertip_fixed"/>
+      <child link="pinky_fingertip"/>
+      <origin xyz="-0.0 -0.0 -0.0" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="thumb_palm_attachement">
+      <inertial>
+         <origin xyz="0.0097898596782605 -0.08818742311004336 -0.01701784861847804" rpy="-0.07427423093673167 -1.052017770430256 1.6071786249621232"/>
+         <mass value="0.02139438755031774"/>
+         <inertia ixx="6.065172629870591e-06" iyy="5.886132956342254e-06" izz="1.971486886118202e-06" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual name="thumb_palm_attachement_mesh">
+         <origin xyz="0.0097898596782605 -0.08818742311004336 -0.01701784861847804" rpy="-0.07427423093673167 -1.052017770430256 1.6071786249621232"/>
+         <geometry>
+            <mesh filename="../../sim_control/src/converted_thumb_palm_attachement_mesh.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <link name="hand_palm2thumb_palm_attachement_fixed">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="fixed" name="hand_palm2thumb_palm_attachement_fixed">
+      <parent link="hand_palm"/>
+      <child link="hand_palm2thumb_palm_attachement_fixed"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <joint type="fixed" name="hand_palm2thumb_palm_attachement_fixed_offset">
+      <parent link="hand_palm2thumb_palm_attachement_fixed"/>
+      <child link="thumb_palm_attachement"/>
+      <origin xyz="-0.0 -0.0 -0.0" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="thumb_adduction_abduction">
+      <inertial>
+         <origin xyz="0.030694943132294573 -0.09613570454979095 -0.013668577414360198" rpy="-1.6263328459346085 -1.2561447098791492 -1.5595459346256217"/>
+         <mass value="0.006749692917329062"/>
+         <inertia ixx="1.0226884072950285e-06" iyy="1.0135345936375654e-06" izz="2.70693496376257e-07" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual name="thumb_adduction_abduction_mesh">
+         <origin xyz="0.030694943132294573 -0.09613570454979095 -0.013668577414360198" rpy="-1.6263328459346085 -1.2561447098791492 -1.5595459346256217"/>
+         <geometry>
+            <mesh filename="../../sim_control/src/converted_thumb_adduction_abduction_mesh.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <link name="thumb_adduction_abduction_joint">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="thumb_adduction_abduction_joint">
+      <parent link="thumb_palm_attachement"/>
+      <child link="thumb_adduction_abduction_joint"/>
+      <origin xyz="0.0142 -0.095797 -0.0135255" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 0.9222899225917794 0.3864987693197088"/>
+      <limit lower="-0.7" upper="0.7" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="thumb_adduction_abduction_joint_offset">
+      <parent link="thumb_adduction_abduction_joint"/>
+      <child link="thumb_adduction_abduction"/>
+      <origin xyz="-0.0142 0.095797 0.0135255" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="thumb_prox_virt">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="4e-10" iyy="4e-10" izz="3e-10" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <link name="thumb_finger_prox_joint_virt">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="thumb_finger_prox_joint_virt">
+      <parent link="thumb_adduction_abduction"/>
+      <child link="thumb_finger_prox_joint_virt"/>
+      <origin xyz="0.0412 -0.0957975 -0.013525" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 -0.38646820939980386 0.9223027285676376"/>
+      <limit lower="0.0" upper="0.83" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="thumb_finger_prox_joint_virt_offset">
+      <parent link="thumb_finger_prox_joint_virt"/>
+      <child link="thumb_prox_virt"/>
+      <origin xyz="-0.0412 0.0957975 0.013525" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="thumb_prox">
+      <inertial>
+         <origin xyz="0.0684338484611079 -0.09691011550349748 -0.0139915680492908" rpy="1.5886356513816504 -0.3964441275464927 1.5246267241903608"/>
+         <mass value="0.008003270372172662"/>
+         <inertia ixx="1.0664937447318687e-06" iyy="1.026426296192856e-06" izz="3.7754533671755455e-07" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual name="thumb_prox_mesh">
+         <origin xyz="0.0684338484611079 -0.09691011550349748 -0.0139915680492908" rpy="1.5886356513816504 -0.3964441275464927 1.5246267241903608"/>
+         <geometry>
+            <mesh filename="../../sim_control/src/converted_thumb_prox_mesh.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <link name="thumb_finger_prox_joint">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="thumb_finger_prox_joint">
+      <parent link="thumb_prox_virt"/>
+      <child link="thumb_finger_prox_joint"/>
+      <origin xyz="0.0572 -0.0957975 -0.013525" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 -0.38646820939980386 0.9223027285676376"/>
+      <limit lower="0.0" upper="0.83" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="thumb_finger_prox_joint_offset">
+      <parent link="thumb_finger_prox_joint"/>
+      <child link="thumb_prox"/>
+      <origin xyz="-0.0572 0.0957975 0.013525" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="thumb_mid_virt">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="4e-10" iyy="4e-10" izz="3e-10" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <link name="thumb_finger_mid_joint_virt">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="thumb_finger_mid_joint_virt">
+      <parent link="thumb_prox"/>
+      <child link="thumb_finger_mid_joint_virt"/>
+      <origin xyz="0.0832 -0.097642 -0.014298" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 -0.38646820939980386 0.9223027285676376"/>
+      <limit lower="0.0" upper="0.96" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="thumb_finger_mid_joint_virt_offset">
+      <parent link="thumb_finger_mid_joint_virt"/>
+      <child link="thumb_mid_virt"/>
+      <origin xyz="-0.0832 0.097642 0.014298" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="thumb_mid">
+      <inertial>
+         <origin xyz="0.10398212611176239 -0.09824628368032164 -0.014551515894406645" rpy="1.5935816164357712 -0.39620591627545787 1.5118132665551107"/>
+         <mass value="0.004796240553018869"/>
+         <inertia ixx="4.115566811301976e-07" iyy="3.546582183599574e-07" izz="1.9073248199950988e-07" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual name="thumb_mid_mesh">
+         <origin xyz="0.10398212611176239 -0.09824628368032164 -0.014551515894406645" rpy="1.5935816164357715 -0.39620591627545787 1.5118132665551107"/>
+         <geometry>
+            <mesh filename="../../sim_control/src/converted_thumb_mid_mesh.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <link name="thumb_finger_mid_joint">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="revolute" name="thumb_finger_mid_joint">
+      <parent link="thumb_mid_virt"/>
+      <child link="thumb_finger_mid_joint"/>
+      <origin xyz="0.0952 -0.097642 -0.014298" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 -0.38646820939980386 0.9223027285676376"/>
+      <limit lower="0.0" upper="0.96" effort="100" velocity="100"/>
+   </joint>
+   <joint type="fixed" name="thumb_finger_mid_joint_offset">
+      <parent link="thumb_finger_mid_joint"/>
+      <child link="thumb_mid"/>
+      <origin xyz="-0.0952 0.097642 0.014298" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <link name="thumb_fingertip">
+      <inertial>
+         <origin xyz="0.104825 -0.09042 -0.0113" rpy="0.0 0.0 0.0"/>
+         <mass value="0.0"/>
+         <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <link name="thumb_mid2thumb_fingertip_fixed">
+      <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="0.001"/>
+         <inertia ixx="1e-09" iyy="1e-09" izz="1e-09" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+   </link>
+   <joint type="fixed" name="thumb_mid2thumb_fingertip_fixed">
+      <parent link="thumb_mid"/>
+      <child link="thumb_mid2thumb_fingertip_fixed"/>
+      <origin xyz="0.104825 -0.09042 -0.0113" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <joint type="fixed" name="thumb_mid2thumb_fingertip_fixed_offset">
+      <parent link="thumb_mid2thumb_fingertip_fixed"/>
+      <child link="thumb_fingertip"/>
+      <origin xyz="-0.0 -0.0 -0.0" rpy="0.0 0.0 0.0"/>
+   </joint>
+   <material name="white">
+      <color rgba="1 1 1 1"/>
+   </material>
+</robot>

@@ -20,7 +20,7 @@ class mjSim:
         self.angles = [0 for i in range(9)]      
 
 
-        self.m = mujoco.MjModel.from_xml_path('src/sim_control/src/robot-hand-v4.xml')
+        self.m = mujoco.MjModel.from_xml_path('src/sim_control/src/robot-hand.xml')
                         
         self.d = mujoco.MjData(self.m)  
     
