@@ -20,10 +20,11 @@ class mjSim:
         #variable for storing the mapped angles
         self.angles = [0 for i in range(9)]      
 
+
         # get python file root 
         self.root = os.path.dirname(os.path.realpath(__file__))
         
-        self.m = mujoco.MjModel.from_xml_path(self.root+'/robot-hand-v4.xml')
+        self.m = mujoco.MjModel.from_xml_path(self.root+'/robot-hand.xml')
                         
         self.d = mujoco.MjData(self.m)  
     
