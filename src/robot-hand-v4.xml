@@ -66,7 +66,7 @@
             file="mesh/thumb_finger_mid.stl"
             scale="0.001 0.001 0.001"></mesh>
 
-    </asset>index_top
+    </asset>
 
     <default>
         <!-- use same geom params as the Shadow Hand model in IsaacGymEnv for now -->
@@ -81,10 +81,9 @@
         <tendon limited="true" range="-0.001 0.001"/>
     </default>
 
-
     <worldbody>
 
-        <body name="hand_palm">
+        <body name="hand_palm" pos="0 0 0" quat="">
             <geom type="mesh" mesh="hand_palm_mesh" contype = "1" conaffinity = "0"></geom>
 
             

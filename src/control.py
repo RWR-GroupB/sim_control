@@ -15,7 +15,7 @@ class mjSim:
         self.ros_sub = rospy.Subscriber(topic, Float32MultiArray, self.callback)
 
         # setting ros rate
-        self.rate = rospy.Rate(20)  # 100 Hz
+        self.rate = rospy.Rate(20)
 
         #variable for storing the mapped angles
         self.angles = [0 for i in range(9)]      
