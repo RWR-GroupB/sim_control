@@ -2,6 +2,7 @@
     <compiler angle="radian" assetdir="assets" autolimits="true"/>
     <asset>
       <mesh name="object_mesh" file="sphere.obj" scale=".036 .036 .036"/>
+      <!-- <material name="object_material" texture="sphere.mtl"/> -->
     </asset>
     <worldbody>
       <body name="ball" pos="0 0 1.15">
