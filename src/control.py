@@ -15,7 +15,7 @@ class mjSim:
         self.ros_sub = rospy.Subscriber(topic, Float32MultiArray, self.callback)
 
         # setting ros rate
-        self.rate = rospy.Rate(20)
+        self.rate = rospy.Rate(1000)
 
         #variable for storing the mapped angles
         self.angles = [0 for i in range(9)]      
@@ -24,7 +24,7 @@ class mjSim:
         # get python file root 
         self.root = os.path.dirname(os.path.realpath(__file__))
         
-        self.m = mujoco.MjModel.from_xml_path(self.root+'/robot-hand.xml')
+        self.m = mujoco.MjModel.from_xml_path(self.root+'/models/scene.xml')
                         
         self.d = mujoco.MjData(self.m)  
     
@@ -38,13 +38,13 @@ class mjSim:
         with mujoco.viewer.launch_passive(self.m,self.d)  as viewer:
             
             # Set the camera position
-            viewer.cam.lookat[0] = 0  # x-coordinate
-            viewer.cam.lookat[1] = 0  # y-coordinate
-            viewer.cam.lookat[2] = 0  # z-coordinate
+            viewer.cam.lookat[0] = -0.00722776 # x-coordinate
+            viewer.cam.lookat[1] = 0.01309284  # y-coordinate
+            viewer.cam.lookat[2] = 1.03614345  # z-coordinate
 
-            viewer.cam.distance = 0.443
-            viewer.cam.elevation = 71.09  # in degrees
-            viewer.cam.azimuth = 166.05  # in degrees
+            viewer.cam.distance = 0.59
+            viewer.cam.elevation = -30.61  # in degrees
+            viewer.cam.azimuth = -129.94  # in degrees
             
             while not rospy.is_shutdown():
 
@@ -84,7 +84,7 @@ if __name__ == '__main__':
             TOPIC = '/faive/policy_output'
         rospy.loginfo_once(f"argument: {sys.argv[1]}")
     else:
-        TOPIC = '/faive/policy_output'
+        TOPIC = '/hand/motors/cmd_joint_angles'
     
     
 
