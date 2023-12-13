@@ -1,6 +1,7 @@
 <mujoco model="robot scene">
 
-  <include file="robot-hand-v4.xml"/>
+  <include file="sphere.xml"/>
+  <include file="robot-hand.xml"/>
   <compiler angle="radian" assetdir="assets" autolimits="true"/>
 
   <statistic center="0 0 0.8" extent="2"/>

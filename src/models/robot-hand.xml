@@ -1,5 +1,5 @@
 <mujoco model="robot_hand_B">
-    <compiler angle="radian" />
+    <compiler angle="radian" assetdir="assets" autolimits="true"/>
     <!-- <option collision="all"/> -->
     <asset>
         <!-- Hand Palm -->
@@ -82,10 +82,9 @@
     </default>
 
     <worldbody>
-
-        <body name="hand_palm" pos="0 0 0" quat="">
+        <body name="hand_palm" pos="0 0 1.07" quat="-0.6903455 0.1530459 0.6903455 -0.1530459">
             <geom type="mesh" mesh="hand_palm_mesh" contype = "1" conaffinity = "0"></geom>
-            <site name = "site" pos = "0.03 -0.0557 0.0095"/>             
+            <!-- <site name = "site" pos = "0.03 -0.0557 0.0095"/>              -->
             <!-- Thumb -->
             <body name="thumb_palm_attachement">
                 <geom type="mesh" mesh="thumb_palm_attachement_mesh"></geom>
@@ -227,7 +226,6 @@
 
     <!-- neighboring bodies are excluded from contact calculation -->
     <contact>
-        
         <exclude body1="hand_palm" body2="thumb_palm_attachement"/>
         <exclude body1="thumb_palm_attachement" body2="thumb_adduction_abduction"/>
         <exclude body1="thumb_adduction_abduction" body2="hand_palm"/>
@@ -250,7 +248,6 @@
         <exclude body1="pinky_finger_prox" body2="pinky_finger_mid"/>
         <exclude body1="pinky_finger_mid" body2="pinky_finger_top"/>
     </contact>
-
 
     <actuator>
         <!-- Thumb -->
@@ -286,7 +283,6 @@
     </sensor>
 
     <tendon>
-
         <!-- Index finger -->
         <fixed name="index_root2index_pp">
             <joint joint="index_finger_prox_virt_joint" coef="1"/>
@@ -354,5 +350,4 @@
 
 
     </tendon>
-
 </mujoco>
