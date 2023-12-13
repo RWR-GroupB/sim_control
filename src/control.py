@@ -52,8 +52,8 @@ class mjSim:
                 mujoco.mj_step(self.m, self.d)
 
                 # Example modification of a viewer option: toggle contact points every two seconds.
-                with viewer.lock():
-                    viewer.opt.flags[mujoco.mjtVisFlag.mjVIS_CONTACTPOINT] = int(self.d.time % 2)
+                # with viewer.lock():
+                #     viewer.opt.flags[mujoco.mjtVisFlag.mjVIS_CONTACTPOINT] = int(self.d.time % 2)
 
                 # Pick up changes to the physics state, apply perturbations, update options from GUI.
                 viewer.sync()

@@ -9,7 +9,7 @@ from std_msgs.msg import Float32MultiArray
 
 class PublichRLPolicy:
     
-    scale_joints = np.float64([[-0.7, 0.7], [0, 0.83],[0, 0.96], #thumb
+    clamp_joints = np.float64([[-0.7, 0.7], [0, 0.83],[0, 0.96], #thumb
                                 [0, 0.65], [0, 0.742], #index
                                 [0, 0.65], [0, 0.742], #middle
                                 [0, 0.65], [0, 0.742]]) #pinky
@@ -30,7 +30,7 @@ class PublichRLPolicy:
             self.joints_arr = policy_joints[0][iter]
             
             # clamp the joints
-            self.joints_arr = np.clip(self.joints_arr, self.clamp_joints[:,0], self.clamp_joints[:,1])
+            # self.joints_arr = np.clip(self.joints_arr, self.clamp_joints[:,0], self.clamp_joints[:,1])
             
             # convert to degrees becore publishing
             joints_arr_deg = np.rad2deg(self.joints_arr)
@@ -50,7 +50,7 @@ if __name__ == '__main__':
     
     # reap .npy file 
     root = os.path.dirname(os.path.realpath(__file__))
-    policy_joints = np.load(root+'/../rl_recordings/2023-12-12_09-07-39_dof_poses.npy')
+    policy_joints = np.load(root+'/../rl_recordings/2023-12-13_10-28-14_dof_poses.npy')
     
     # print the size of the policy
     rospy.loginfo('Policy size: %s', policy_joints.shape)
