@@ -6,6 +6,7 @@ import numpy as np
 import os
 import sys
 from std_msgs.msg import Float32MultiArray
+import argparse
 
 class PublichRLPolicy:
     
@@ -48,9 +49,34 @@ if __name__ == '__main__':
     
     publish_rl_policy = PublichRLPolicy()
     
+    # read arguments from command line
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-d', '--direction', help='Rotation direction')
+    parser.add_argument('-t', '--task', help='Task name')
+    args = parser.parse_args()
+
+    # check the rotation direction and task
+    if args.direction:
+        rotation_dir = args.direction
+        rospy.loginfo('Rotation direction: %s', rotation_dir)
+    else:
+        rospy.logerr('Rotation direction not specified')
+        sys.exit()
+
+    # check the task name
+    if args.task:
+        task_name = args.task
+        rospy.loginfo('Task name: %s', task_name)
+    else:
+        rospy.logerr('Task name not specified')
+        sys.exit()
+    
     # reap .npy file 
     root = os.path.dirname(os.path.realpath(__file__))
-    policy_joints = np.load(root+'/../rl_recordings/2023-12-15_12-38-03_dof_poses.npy')
+    if task_name=="ball":
+        policy_joints = np.load(root+f'/../rl_recordings/rotate_x_{rotation_dir}_med.npy')
+    else:
+        sys.exit()
     
     # print the size of the policy
     rospy.loginfo('Policy size: %s', policy_joints.shape)
