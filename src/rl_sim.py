@@ -7,9 +7,10 @@ from std_msgs.msg import Float32MultiArray
 import numpy as np
 import os
 import sys
+import argparse
 
 class mjSim:
-    def __init__(self, topic = ''):
+    def __init__(self, topic = '', x_config=None):
 
         #subcribe to the mapped joint angles
         self.ros_sub = rospy.Subscriber(topic, Float32MultiArray, self.callback)
@@ -27,6 +28,12 @@ class mjSim:
         self.m = mujoco.MjModel.from_xml_path(self.root+'/models/scene.xml')
                         
         self.d = mujoco.MjData(self.m)  
+        
+        # rotate the body named "hand_palm" to a quarternion orientation
+        if x_config:
+            # quarternion from euler angles
+            if x_config == 1:
+                self.m.body('hand_palm').quat = [ -0.7010574, 0.092296, 0.7010574, -0.092296 ] # -15,-90,180
     
     def callback(self, msg):
 
@@ -74,7 +81,20 @@ if __name__ == '__main__':
 
     TOPIC = '/hand/motors/cmd_joint_angles'
     
-    simulation = mjSim(TOPIC)
+    # add argument to get x angle from command line
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-x', '--x_config', help='x-axis configuration')
+    args = parser.parse_args()
+    
+    # use ros args
+    if args.x_config:
+        x_config = int(args.x_config)
+        rospy.loginfo('x config: %s', x_config)
+    else:
+        x_config = None
+    
+    
+    simulation = mjSim(TOPIC, x_config)
 
     rospy.loginfo_once('Opening mujoco simulator!!!')
 
