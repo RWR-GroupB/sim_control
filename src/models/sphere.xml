@@ -1,0 +1,14 @@
+<mujoco model="object">
+    <compiler angle="radian" assetdir="assets" autolimits="true"/>
+    <asset>
+      <mesh name="object_mesh" file="sphere.obj" scale=".036 .036 .036"/>
+      <!-- <material name="object_material" texture="sphere.mtl"/> -->
+    </asset>
+    <worldbody>
+      <body name="ball" pos="0 0 1.15">
+        <freejoint name="root"/>
+        <geom type="sphere" size="0.036" density="352.0" mass="0.058" 
+              rgba="1 1 1 1" mesh="object_mesh"/>
+      </body>
+    </worldbody>
+  </mujoco>
