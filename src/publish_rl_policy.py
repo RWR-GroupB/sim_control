@@ -90,6 +90,10 @@ if __name__ == '__main__':
         elif rotation_dir=="-1":
             start_idx = 225
             stop_idx = 400
+    elif task_name=="cube":
+        policy_joints = np.load(root+'/../rl_recordings/cube_success_5_reorientation_rot_0.03_dof_poses_2023-12-15_19-32-23.npy')
+        start_idx = None
+        stop_idx = None
     else:
         sys.exit()
     
@@ -100,5 +104,8 @@ if __name__ == '__main__':
     
     while not rospy.is_shutdown():
         publish_rl_policy.publish_joints(policy_joints, start_idx, stop_idx)
-        rospy.loginfo(f'Repeating the policy again...{counter}')
         counter += 1
+        rospy.loginfo(f'Repeating the policy again...{counter}')
+        if task_name=="cube":
+            break
+        

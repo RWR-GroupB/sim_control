@@ -1,0 +1,15 @@
+<mujoco model="object">
+    <compiler angle="radian" assetdir="assets" autolimits="true"/>
+
+    <asset>
+        <mesh name="object_mesh" file="cube_multicolor.obj" scale=".056 .056 .056"/>
+        <texture name="object_texture" file="cube_pattern.png"/> 
+        <material name="object_material" texture="object_texture"/> 
+    </asset>
+    <worldbody>
+        <body name="object" pos="0 0 1.15">
+            <freejoint name="root"/>
+            <geom type="mesh" mesh="object_mesh" size=".056 .056 .056" density="567.0" material="object_material"/>
+        </body>
+    </worldbody>
+</mujoco>

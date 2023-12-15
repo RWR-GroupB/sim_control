@@ -24,8 +24,10 @@ class mjSim:
 
         # get python file root 
         self.root = os.path.dirname(os.path.realpath(__file__))
-        
-        self.m = mujoco.MjModel.from_xml_path(self.root+'/models/scene.xml')
+        if x_config==2:
+            self.m = mujoco.MjModel.from_xml_path(self.root+'/models/scene-cube.xml')
+        else:
+            self.m = mujoco.MjModel.from_xml_path(self.root+'/models/scene-ball.xml')
                         
         self.d = mujoco.MjData(self.m)  
         
@@ -34,6 +36,8 @@ class mjSim:
             # quarternion from euler angles
             if x_config == 1:
                 self.m.body('hand_palm').quat = [ -0.7010574, 0.092296, 0.7010574, -0.092296 ] # -15,-90,180
+            elif x_config ==2:
+                self.m.body('hand_palm').quat = [ -0.7071068, 0, 0.7071068, 0 ] # 0,-90,180
     
     def callback(self, msg):
 
