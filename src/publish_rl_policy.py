@@ -95,9 +95,11 @@ if __name__ == '__main__':
         
     elif task_name=="cube":
         policy_joints = np.load(root+'/../rl_recordings/rotate_cube_z_+1.npy')
-        # policy_joints = np.load(root+'/../rl_recordings/rotate_x_-1_lar.npy')
+        # policy_joints = np.load(root+'/../rl_recordings/cube_success_3_reorientation_rot_0.03_dof_poses_2023-12-15_19-34-53_dof_poses.npy')
         start_idx = 0
         stop_idx = 95
+        # start_idx = 150
+        # stop_idx = 490
         rate = 10
         publish_rl_policy.set_rate(rate)
         

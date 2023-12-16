@@ -7,7 +7,7 @@
         <material name="object_material" texture="object_texture"/> 
     </asset>
     <worldbody>
-        <body name="object" pos="0 0 1.15">
+        <body name="object" pos="0.01 -0.04 1.15">
             <freejoint name="root"/>
             <geom type="mesh" mesh="object_mesh" size=".056 .056 .056" density="567.0" material="object_material"/>
         </body>
