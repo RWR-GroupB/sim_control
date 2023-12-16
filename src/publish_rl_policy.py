@@ -15,14 +15,12 @@ class PublichRLPolicy:
     #                             [0, 0.65], [0, 0.742], #middle
     #                             [0, 0.65], [0, 0.742]]) #pinky
     exit_flag = False
+    rate = None
     
     def __init__(self, topic='/hand/motors/cmd_joint_angles'):
         self.ros_pub = rospy.Publisher(topic, Float32MultiArray, queue_size=10)
         
         self.joints_arr = np.zeros(9)
-        
-        # setting ros rate
-        self.rate = rospy.Rate(20)
         
     def publish_joints(self, policy_joints, start_idx=None, stop_idx=None):
         # publish the policy
@@ -45,10 +43,12 @@ class PublichRLPolicy:
             if not rospy.is_shutdown():
                 self.ros_pub.publish(msg)
                 
-                if (iter%25)==0:
+                if (iter%10)==0:
                     rospy.loginfo(f'Publishing policy...{iter}')
                 self.rate.sleep()
-        
+    
+    def set_rate(self, rate=20):
+        self.rate = rospy.Rate(rate)
 
 if __name__ == '__main__':
     
@@ -90,10 +90,17 @@ if __name__ == '__main__':
         elif rotation_dir=="-1":
             start_idx = 225
             stop_idx = 400
+        rate = 20
+        publish_rl_policy.set_rate(rate)
+        
     elif task_name=="cube":
-        policy_joints = np.load(root+'/../rl_recordings/cube_success_5_reorientation_rot_0.03_dof_poses_2023-12-15_19-32-23.npy')
-        start_idx = None
-        stop_idx = None
+        policy_joints = np.load(root+'/../rl_recordings/rotate_cube_z_+1.npy')
+        # policy_joints = np.load(root+'/../rl_recordings/rotate_x_-1_lar.npy')
+        start_idx = 0
+        stop_idx = 95
+        rate = 10
+        publish_rl_policy.set_rate(rate)
+        
     else:
         sys.exit()
     
